@@ -11,8 +11,7 @@ For those wishing to hook into this plugin. Or to develop code based on this plu
 	<url>https://jitpack.io</url>
 </repository>
 ```
-[![](https://jitpack.io/v/Hanro50/Discraft.svg)](https://jitpack.io/#Hanro50/Discraft)
-Replace "VERSION" with the number given by the badge Jitpack badge
+[![](https://jitpack.io/v/Hanro50/Discraft.svg)](https://jitpack.io/#Hanro50/Discraft)Replace "VERSION" with the number given by the badge Jitpack badge
 ```
 <dependency>
 	<groupId>com.github.Hanro50</groupId>
