@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.han.api.types.RoleAPI;
+import org.han.debug.Log;
 import org.han.api.BaseData;
 import org.han.api.PluginHook;
 import org.han.files.DisgotJsonObj;
@@ -43,14 +44,14 @@ public abstract class LuckPermshookbase<T> implements PluginHook {
 	public void activate() {
 		api = LuckPermsProvider.get();
 		api.getContextManager().registerCalculator(LPC);
-		List<RoleAPI> allrole;
-		try {
-			allrole = BaseData.getPluginbase().getRoleManager().getAllRoles();
-		} catch (Exception e) {
-			return;
-		}
 		subs.add(api.getEventBus().subscribe(GroupLoadAllEvent.class, group -> {
-
+			List<RoleAPI> allrole;
+			try {
+				allrole = BaseData.getPluginbase().getRoleManager().getAllRoles();
+			} catch (Exception e) {
+				Log.trace(e);
+				return;
+			}
 			api.getGroupManager().createAndLoadGroup(LINKED);
 			api.getGroupManager().createAndLoadGroup(BOOSTER);
 
@@ -82,12 +83,8 @@ public abstract class LuckPermshookbase<T> implements PluginHook {
 			}
 		}));
 
-		subs.add(api.getEventBus().subscribe(UserDataRecalculateEvent.class, event ->
-
-		{
-
+		subs.add(api.getEventBus().subscribe(UserDataRecalculateEvent.class, event -> {
 			event.getUser().data().remove(InheritanceNode.builder(ROLE).build());
-
 			try {
 				List<RoleAPI> memroles = BaseData.getPluginbase().getRoleManager()
 						.getRolesOf(event.getUser().getUniqueId());

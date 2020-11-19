@@ -391,6 +391,7 @@ public class DefaultOut extends DisgotJsonObj implements OutputHandlerAPI {
 
 			Printer.err(CHL, mem, (message.getHeader().trim().length() > 0 ? "**" + message.getHeader() + "** :" : "")
 					+ message.getContent());
+			return;
 		}
 		new Printer(CHL.getGuild(), mem).setup(message.getHeader(), message.getContent()).Print(CHL);
 

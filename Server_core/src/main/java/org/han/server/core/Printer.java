@@ -27,16 +27,15 @@ public class Printer {
 	public void Print(Msg TC) {
 		Print(TC.getChannel());
 	}
-	
-	
-	public void Print(MessageChannel  TC) {
+
+	public void Print(MessageChannel TC) {
 		TC.sendMessage(build()).queue();
 	}
 
 	public static String getUserIcon(User user) {
-		return  ChkUser(user);
+		return ChkUser(user);
 	}
-	
+
 	private static String ChkUser(User user) {
 		if (user.getAvatarUrl() != null)
 			return user.getAvatarUrl();
@@ -102,7 +101,10 @@ public class Printer {
 	}
 
 	public Printer setup(String header, String Disc) {
-		embed.setTitle(header).setDescription(Disc);
+		if (header.trim().length() > 0)
+			embed.setTitle(header);
+		if (Disc.trim().length() > 0)
+		embed.setDescription(Disc);
 		return this;
 	}
 

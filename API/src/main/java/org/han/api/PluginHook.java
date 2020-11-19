@@ -14,6 +14,7 @@ public interface PluginHook {
 
 	public static void create(Class<? extends PluginHook> PH, String HookName) {
 		try {
+			Log.out("Loading "+HookName);
 			PluginHook pluginhook = PH.getConstructor().newInstance();
 			hooks.add(pluginhook);
 			pluginhook.activate();
@@ -21,6 +22,7 @@ public interface PluginHook {
 		} catch (Throwable e) {
 			Log.wrn("Could not load: " + HookName + " this can be ignored for the most part");
 			Log.trace(e);
+			
 		}
 	}
 	
