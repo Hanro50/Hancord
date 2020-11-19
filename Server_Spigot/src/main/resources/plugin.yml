@@ -1,0 +1,12 @@
+name: Disgot
+version: 1.0-SNAPSHOT
+author: Hanro50
+main: org.han.spigot.SpigotServ
+api-version: 1.16
+depend: [HanLib_API]
+softdepend: [dynmap,LuckPerms] 
+commands:
+  link:
+    description: Get a code to DM to the bot
+  unlink:
+    description: Unlink your account
