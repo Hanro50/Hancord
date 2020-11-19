@@ -13,6 +13,10 @@
 	</properties>
 	<repositories>
 		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+		<repository>
 			<name>jcenter</name>
 			<id>bintray-jcenter</id>
 			<url>https://jcenter.bintray.com</url>
@@ -28,9 +32,9 @@
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>org.han.util</groupId>
-			<artifactId>han_libs_BukkitAPI</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.github.Hanro50</groupId>
+			<artifactId>HanCore</artifactId>
+			<version>0.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
