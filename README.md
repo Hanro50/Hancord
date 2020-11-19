@@ -8,11 +8,12 @@ A discord binding for Spigot's plugin api
 ```+Role Colours```
 #### 1.12+ 	
 ```+Advancements```
+#### 1.10+
+```+Dynmap intergration```
 #### 1.8+ 	
 ```
 +Death messages 
 +Discord <-> minecraft chat linking 
-+Dynmap intergration
 +Luckperms intergration (Only Discord->Minecraft)
 +A full discord command handler
 ```
