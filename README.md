@@ -3,6 +3,21 @@
 # Discraft
 A discord binding for Spigot's plugin api
 
+# Features 
+#### 1.16+ 	
+```+Role Colours```
+#### 1.12+ 	
+```+Advancements```
+#### 1.8+ 	
+```
++Death messages 
++Discord <-> minecraft chat linking 
++Dynmap intergration
++Luckperms intergration (Only Discord->Minecraft)
++A full discord command handler
+```
+
+
 # Setting up Maven 
 For those wishing to hook into this plugin. Or to develop code based on this plugin
 ```
