@@ -59,3 +59,4 @@ All spigot clients should implement this
 	<scope>provided</scope>
 </dependency>
 ```
+(Do not implement "Server_Spigot")
