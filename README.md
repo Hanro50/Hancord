@@ -19,7 +19,7 @@ A discord binding for Spigot's plugin api
 ```
 
 
-# Setting up Maven 
+# Setting up Maven (Developers)
 For those wishing to hook into this plugin. Or to develop code based on this plugin
 ```
 <repository>
