@@ -6,6 +6,8 @@ import java.util.UUID;
 public interface OutputHandlerAPI {
 	public static final String DEFAULT = "default";
 
+	public void setChannel(String ChannelName, long id);
+	
 	public void advancement(String ChannelName, AdvancementAPI advance);
 
 	public void deathMessage(String ChannelName, DeathMessageAPI dm);
@@ -57,6 +59,10 @@ public interface OutputHandlerAPI {
 	
 	public default void serverStateUpdate(boolean startup) {
 		serverStateUpdate(DEFAULT, startup);
+	}
+	
+	public default void setChannel(long id) {
+		setChannel(DEFAULT,id);
 	}
 	
 	public Long getDefaultchannel();

@@ -2,11 +2,14 @@ package org.han.server.spigot;
 
 import java.io.File;
 
+import javax.security.auth.login.LoginException;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.han.api.PluginHook;
 import org.han.bukkit.HanLibBukkit;
-import org.han.client.spigot.listeners.DiscraftClient;
+import org.han.client.spigot.DiscraftClient;
+import org.han.debug.Log;
 import org.han.server.core.DiscraftServerbase;
 import org.han.server.core.Printer;
 import org.han.server.core.DiscraftServerbase.Data;
@@ -37,8 +40,13 @@ public class SpigotServ extends JavaPlugin {
 
 			if (server != null)
 				server.stop();
-			server = new Server();
-			data = new Data(server);
+			try {
+				server = new Server();
+				data = new Data(server);
+			} catch (java.util.concurrent.CompletionException | LoginException e) {
+				Log.out("Invalid token, please provide a valid discord bot token in this plugin's config options before proceeding");
+				this.setEnabled(false);
+			}
 
 		});
 	}
@@ -66,7 +74,7 @@ public class SpigotServ extends JavaPlugin {
 
 			PluginHook.create(Luckperms.class, "Luckperms intergration");
 			PluginHook.create(Dynmap.class, "Dynmap intergration");
-			
+
 		}
 
 		@Override
@@ -108,8 +116,9 @@ public class SpigotServ extends JavaPlugin {
 		@Override
 		public void regComs() {
 			// TODO Auto-generated method stub
-			reg("link-channel", "Link a channel to use for output", run -> {
+			reg("set-channel", "Link a channel to use for output", run -> {
 				Settings.get().DefaultChannel = run.getChannel().getIdLong();
+				getOutput().setChannel(run.getChannel().getIdLong());
 				Settings.get().save();
 				Printer.suc(run, "set channel");
 			}).setGuild().setPerms(AccCheck.BotOwner, AccCheck.Trusted);

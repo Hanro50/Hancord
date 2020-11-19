@@ -1,37 +1,26 @@
 package org.han.server.core.modules;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.han.server.core.CHandler;
 import org.han.server.core.DiscordDataHolder;
 import org.han.server.core.Printer;
-import org.han.server.core.data.AccountLink;
 import org.han.server.core.data.DiscordData;
-import org.han.server.core.data.ServerData;
 import org.han.server.core.types.ComBase;
 import org.han.server.core.types.ComObj;
-import org.han.server.core.types.Msg;
 import org.han.server.core.types.FunctionalInterfaces.AccCheck;
 import org.han.server.core.types.FunctionalInterfaces.HelpInf;
-import org.han.api.IPGrabber;
-import org.han.types.AsyncProcess;
-import org.han.types.Feed;
+import org.han.server.core.types.Msg;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed.Field;
-import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;;
+import net.dv8tion.jda.api.entities.TextChannel;;
 
 public class CommonCom implements ComBase {
 	static Set<String> guilds = new ConcurrentSkipListSet<String>();
@@ -54,95 +43,13 @@ public class CommonCom implements ComBase {
 		reg("info", "get information about this bot :)", run -> {
 			String title = "Hello there frend!";
 			if (run.isGuild())
-				title = "Thank you for adding me";
-			run.getChannel().sendMessage(new Printer(run).setup(title,
-					"Programmer: [Hanro](https://github.com/Hanro50)\nArtist: [Kiba](https://www.instagram.com/pirateshit/)\n"//
-							+ Rtext[(int) (Math.random() * (double) Rtext.length)])
-					.build()).queue();
+				title = "Thank you for installing me";
+			run.getChannel()
+					.sendMessage(new Printer(run).setup(title, "Programmer: [Hanro](https://github.com/Hanro50)\n"//
+							+ Rtext[(int) (Math.random() * (double) Rtext.length)]).build())
+					.queue();
 		});
-// .setAuthor(title, "https://github.com/Hanro50", null)
-// clean
-		reg("clean",
-				"Remove messages posted by removed users or by any mentioned users for around 10'000 messages up within this chat\n"
-						+ "Deleted messages shall be saved and sent to you in DM. (Only one operation allowed per guild)"
-						+ "\n Cannot delete more then 200 messages at once due to rate limits and general bot-server load",
-				run -> {
-					if (guilds.contains(run.getGuild().getId())) {
-						run.getChannel().sendMessage("Only one of these operations allowed at a time per guild")
-								.queue();
-						return;
-					}
-					Message ms = run.GetDM().sendMessage("Scanned 0 messages").complete();
-					guilds.add(run.getGuild().getId());
-					String out = "";
-					String OutMess = "Deleted messages";
-					int idelmessages = 0;
-					try {
 
-						MessageHistory MH = run.getChannel().getHistory();
-						int i = -1;
-
-						Set<Message> Messages = new HashSet<Message>();
-						Messages.addAll(MH.getRetrievedHistory());
-						for (int count = 0; count < 100; count++) {
-							Messages.addAll(MH.retrievePast(100).complete());
-							if (Messages.size() == i) {
-								break;
-							}
-							ms.editMessage("Scanning: " + Messages.size() + " messages")
-									.deadline(System.currentTimeMillis() + 100).queue();
-							i = Messages.size();
-						}
-
-						int Pcount = 0;
-						Feed<Message, Boolean> chk = run.getMessage().getMentionedUsers().size() > 0
-								? msg -> run.getMessage().isMentioned(msg.getAuthor())
-								: msg -> !(run.getGuild().isMember(msg.getAuthor()) || msg.isWebhookMessage());
-
-						for (Message msg : Messages) {
-							Pcount++;
-
-							if (Pcount % 50 == 0)
-								ms.editMessage("Processed: " + Pcount + "/" + Messages.size() + " messages")
-										.deadline(System.currentTimeMillis() + 100).queue();
-							if (chk.get(msg)) {
-								out += format(msg);
-								msg.delete().complete();
-								idelmessages++;
-							}
-							if (idelmessages > 200) {
-								OutMess = "Max deleted messages reached!";
-							}
-						}
-
-					} catch (ErrorResponseException e) {
-						OutMess = "Got the following message from discord: " + e.getErrorResponse().toString();
-					} catch (RuntimeException e) {
-						OutMess = "An error occured";
-					} finally {
-						try {
-							ms.delete().queue();
-
-							run.GetDM().sendMessage(OutMess).addFile(out.getBytes(), "messages.txt").complete();
-
-							TextChannel Lchan = new DiscordData().getLogChannel(run.getGuild());
-							if (Lchan != null) {
-								Lchan.sendMessage(OutMess).addFile(out.getBytes(), "messages.txt").complete();
-							}
-
-						} finally {
-							guilds.remove(run.getGuild().getId());
-						}
-					}
-				}).setPar("[@mentions...]").setPerms(AccCheck.GuildAdmin).setGuild();
-// Stop
-		reg("stop", "Kills the bot", run -> {
-			run.getChannel().sendMessage("Shutting down...").complete();
-			run.getJDA().getShardManager().shutdown();
-			System.runFinalization();
-			System.gc();
-			System.exit(0);
-		}).setPerms(AccCheck.BotOwner).hide();
 // Restart
 		reg("restart", "Restarts the bot", run -> {
 			run.getChannel().sendMessage("Restarting!").complete();
@@ -293,38 +200,7 @@ public class CommonCom implements ComBase {
 			run.getMessage().addReaction("📩").queue();
 
 		});
-		reg("command", "Run a minecraft command", run -> {
-			UUID uuid = AccountLink.getUUID(run.getUser().getIdLong());
-			if (uuid == null) {
-				Printer.err(run, "Please link your account before running this command");
-				return;
-			}
-			ServerData.getServer().command(run.getUser().getIdLong(),uuid, run.getText().trim());
-		}).setGuild();
-		reg("ip", "Get the server's IP", run -> {
-			AsyncProcess.run(f -> {
-				try {
-					new Printer(run).setup("Current server IPv4 address", IPGrabber.getIP()).Print(run);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
 
-		});
-		reg("set-guild", "Set the guild this bot should focus on", run -> {
-			Settings.get().DiscordGuildID = run.getGuild().getIdLong();
-			Settings.get().save();
-			Printer.suc(run, "I will now link data to this guild");
-		}).setPerms(AccCheck.BotOwner).setGuild();
-		reg("link", "Link a minecraft and discord account", run -> {
-			AccountLink.completeLink(run);
-		}).setPrivate();
-	}
-
-	private static String format(Message msg) {
-		return msg.getTimeCreated().toString() + "\n" + "[" + msg.getAuthor().getId() + ":" + msg.getAuthor() + "]"
-				+ msg.getContentDisplay() + "\n";
 	}
 
 	@Override

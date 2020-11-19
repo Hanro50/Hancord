@@ -12,7 +12,7 @@ public abstract class HeaderUpdaterBase extends TimerTask implements PluginHook 
 	@Override
 	public void run() {
 		BaseData.getPluginbase().getOutput()
-				.updateTopic(getMaxPlayers() + "/" + getMaxPlayers() + " Players online\n" + Method());
+				.updateTopic(getPlayersOnline() + "/" + getMaxPlayers() + " Players online\n" + Method());
 	}
 
 	@Override

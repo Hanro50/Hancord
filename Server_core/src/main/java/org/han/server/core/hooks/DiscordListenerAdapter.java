@@ -7,11 +7,15 @@ import javax.annotation.Nonnull;
 
 import org.han.api.BaseData;
 import org.han.api.events.DiscordChatEvent;
+import org.han.api.events.DiscordLoginEvent;
 import org.han.api.events.EventHandler;
+import org.han.debug.Log;
 import org.han.server.core.data.AccountLink;
 import org.han.server.core.types.MsgGenericMessage;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -25,6 +29,11 @@ public class DiscordListenerAdapter extends ListenerAdapter {
 		this.SH = SH;
 	}
 
+	public void onReady(@Nonnull ReadyEvent event) {
+		Log.out(SH.retrieveApplicationInfo().complete().getInviteUrl(Permission.ADMINISTRATOR));
+		EventHandler.callEvent(new DiscordLoginEvent(true));
+	}
+
 //UsrData
 	// AsyncDiscordLoginEvent
 	public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
@@ -36,7 +45,7 @@ public class DiscordListenerAdapter extends ListenerAdapter {
 	// Bukkit.getServer().getPluginManager().callEvent(
 	@Override
 	public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
-	
+
 		if (!BaseData.getPluginbase().getOutput().availableChannels().values().contains(event.getChannel().getIdLong())
 				|| event.getMessage().getContentRaw().startsWith(BaseData.Discordcomchars)) {
 			return;

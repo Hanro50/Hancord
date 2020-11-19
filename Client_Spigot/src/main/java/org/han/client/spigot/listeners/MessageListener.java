@@ -35,46 +35,10 @@ import org.han.api.BaseData;
 import org.han.api.defaults.DeathMessage;
 import org.han.api.defaults.Message;
 import org.han.client.spigot.NameSpaceMappings;
-import org.han.client.spigot.events.AsyncDiscordChatEvent;
-import org.han.client.spigot.events.AsyncDiscordLoginEvent;
 import org.han.debug.Log;
 import org.han.vectors.Vector3;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class MessageListener implements Listener {
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onDiscordLogin(AsyncDiscordLoginEvent event) {
-
-		// PluginHook.create(event.Disgot, DynMapHook.class, "Dynmap integration");
-		// PluginHook.create(event.Disgot, LuckPermshook.class, "Luckperms
-		// integration");
-		// PluginHook.create(event.Disgot, HeaderUpdater.class);
-		// PluginHook.create(event.Disgot, MarkerEvents.class);
-
-	}
-
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onDiscordChat(AsyncDiscordChatEvent event) {
-		try {
-			String out = ChatColor.translateAlternateColorCodes('&', event.getFormat());
-
-			Bukkit.getServer()
-					.broadcastMessage(String.format(out,
-							event.isLinked() ? BaseData.getPluginbase().getMCName(event.getPlayer()) : event.getName(), //
-							event.getMessage(), //
-							ChatColor.of(event.getTopRoleColor())));
-		} catch (RuntimeException | java.lang.NoSuchMethodError e) {
-			String out = org.bukkit.ChatColor.translateAlternateColorCodes('&', event.getFormat());
-			Bukkit.getServer()
-					.broadcastMessage(String.format(out,
-							event.isLinked() ? BaseData.getPluginbase().getMCName(event.getPlayer()) : event.getName(), //
-							event.getMessage(), //
-							org.bukkit.ChatColor.AQUA));
-
-			// org.bukkit.ChatColor;
-		}
-	}
 
 //PlayerLoginEvent
 	@EventHandler

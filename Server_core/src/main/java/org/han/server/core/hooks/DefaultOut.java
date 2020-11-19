@@ -13,6 +13,7 @@ import org.han.api.types.DeathMessageAPI;
 import org.han.api.types.MessageAPI;
 import org.han.api.types.OutputHandlerAPI;
 import org.han.debug.Log;
+import org.han.files.DisgotJsonObj;
 import org.han.server.core.Printer;
 import org.han.server.core.data.AccountLink;
 import org.han.server.core.data.ServerData;
@@ -37,7 +38,14 @@ import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
-public class DefaultOut implements OutputHandlerAPI {
+public class DefaultOut extends DisgotJsonObj implements OutputHandlerAPI {
+	private static final long serialVersionUID = 4610452039842513714L;
+
+	public DefaultOut() {
+		super("", "Channels", "json");
+
+	}
+
 	@Expose
 	Map<String, Long> Channels = new HashMap<String, Long>();
 
@@ -375,23 +383,26 @@ public class DefaultOut implements OutputHandlerAPI {
 			return;
 		}
 		TextChannel CHL = ServerData.getServer().getGuild().getTextChannelById(ChannelID);
+		IMentionable mem = ServerData.getServer().getGuild().retrieveMemberById(message.getDiscordID()).complete();
+		if (mem == null) {
+			mem = ServerData.getServer().getSH().retrieveUserById(message.getDiscordID()).complete();
+		}
 		if (message.isError()) {
-			IMentionable mem = ServerData.getServer().getGuild().retrieveMemberById(message.getDiscordID()).complete();
-			if (mem == null) {
-				mem = ServerData.getServer().getSH().retrieveUserById(message.getDiscordID()).complete();
-			}
 
 			Printer.err(CHL, mem, (message.getHeader().trim().length() > 0 ? "**" + message.getHeader() + "** :" : "")
 					+ message.getContent());
 		}
+		new Printer(CHL.getGuild(), mem).setup(message.getHeader(), message.getContent()).Print(CHL);
 
 	}
 
 	@Override
 	public Map<String, Long> availableChannels() {
-		Long d = getDefaultchannel();
-		if (d != null && !Channels.containsKey(DEFAULT))
-			Channels.put(DEFAULT, getDefaultchannel());
+		if (Channels.isEmpty()) {
+			if (this.exists())
+				makeLoaded();
+			setChannel(getDefaultchannel());
+		}
 		return Channels;
 	}
 
@@ -420,8 +431,21 @@ public class DefaultOut implements OutputHandlerAPI {
 			return;
 		}
 		TextChannel CHL = ServerData.getServer().getGuild().getTextChannelById(ChannelID);
-		CHL.sendMessage(new EmbedBuilder().setAuthor(startup ? "🟢 server just started!" : "🔴 server was just stopped!")
-				.setColor(startup ? Color.green : Color.red).build()).queue();
+		CHL.sendMessage(
+				new EmbedBuilder().setAuthor(startup ? "🟢 server just started!" : "🔴 server was just stopped!")
+						.setColor(startup ? Color.green : Color.red).build())
+				.queue();
+
+	}
+
+	@Override
+	public void setChannel(String ChannelName, long id) {
+		Channels.remove(ChannelName);
+		Channels.put(ChannelName, id);
+		if (id != getDefaultchannel()) {
+			this.save();
+
+		}
 
 	}
 

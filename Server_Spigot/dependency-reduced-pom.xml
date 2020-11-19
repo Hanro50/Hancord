@@ -40,9 +40,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.han.util</groupId>
-      <artifactId>han_libs_BukkitAPI</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <groupId>com.github.Hanro50</groupId>
+      <artifactId>HanCore</artifactId>
+      <version>0.0.1</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

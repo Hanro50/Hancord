@@ -28,11 +28,11 @@ public class Settings extends DisgotConfigObj {
 			+ "This can be set within the discord server itself with the aid of the bot owner")
 	public Long DiscordGuildID = 000000000000000L;
 	@Option(propertyComment = "The main output channel for the server. "
-			+ "This can be set within the discord server itself with the aid of the bot owner")
+			+ "This can be set within the discord server itself with the aid of the bot owner"
+			)
 	public Long DefaultChannel = 000000000000000L;
-	@Option(propertyComment = "The discord bot token to use" + "This needs to be set by hand")
+	@Option(propertyComment = "The discord bot token to use\n" + "This needs to be set by hand")
 	public String Token = "Token here";
-	
 
 	public Settings() {
 		super("", "Settings", "yml");

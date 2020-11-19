@@ -1,6 +1,6 @@
 package org.han.api.events;
 
-public class DiscordLoginEvent {
+public class DiscordLoginEvent implements DiscordEvent{
 	private boolean isServer;
 
 	public DiscordLoginEvent(boolean isServer) {

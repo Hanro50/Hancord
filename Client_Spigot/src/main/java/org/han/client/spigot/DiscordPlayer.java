@@ -16,8 +16,6 @@ import org.bukkit.plugin.Plugin;
 import org.han.api.BaseData;
 import org.han.api.defaults.Broadcast;
 import org.han.debug.Log;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class DiscordPlayer implements CommandSender, AnimalTamer {
 	protected final PermissibleBase perm;
@@ -136,6 +134,7 @@ public class DiscordPlayer implements CommandSender, AnimalTamer {
 
 	public void printInput() {
 		out = ChatColor.stripColor(out).trim();
+		Log.out("broadcasting message");
 		if (out.length() < 1) {
 			BaseData.getPluginbase().getOutput()
 					.broadcastMessage(new Broadcast(discordID, "", "Got no console respone", true));
@@ -163,50 +162,7 @@ public class DiscordPlayer implements CommandSender, AnimalTamer {
 	}
 
 	public Spigot spigot() {
-		try {
-			return new Spigot() {
-				public void sendMessage(@NotNull net.md_5.bungee.api.chat.BaseComponent component) {
-					DiscordPlayer.this.sendMessage(component.toLegacyText());
-				}
-
-				/**
-				 * Sends an array of components as a single message to the sender.
-				 *
-				 * @param components the components to send
-				 */
-				public void sendMessage(@NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
-					for (net.md_5.bungee.api.chat.BaseComponent com : components) {
-						sendMessage(com);
-					}
-				}
-
-				/**
-				 * Sends this sender a chat component.
-				 *
-				 * @param component the components to send
-				 * @param sender    the sender of the message
-				 */
-				public void sendMessage(@Nullable UUID sender,
-						@NotNull net.md_5.bungee.api.chat.BaseComponent component) {
-					sendMessage(component);
-				}
-
-				/**
-				 * Sends an array of components as a single message to the sender.
-				 *
-				 * @param components the components to send
-				 * @param sender     the sender of the message
-				 */
-				public void sendMessage(@Nullable UUID sender,
-						@NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
-					sendMessage(components);
-				}
-			};
-		} catch (Error e) {
-			return null;
-			// mainly for outdated versions of minecraft
-
-		}
+		return null;
 	}
 
 }
