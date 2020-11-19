@@ -40,7 +40,7 @@ The core API, all implementations should intergrate this
 </dependency>
 ```
 #### Server_core:
-Only server versions should implement this
+All server implementations should implement this, regardless of platform
 ```
 <dependency>
 	<groupId>com.github.Hanro50.Discraft</groupId>
