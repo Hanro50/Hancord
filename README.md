@@ -33,7 +33,7 @@ Replace "VERSION" with the number given by the Jitpack badge</br>
 The core API, all implementations should intergrate this
 ```
 <dependency>
-	<groupId>com.github.Hanro50.Discraft</groupId>
+	<groupId>com.github.Hanro50.Hancord</groupId>
 	<artifactId>API</artifactId>
 	<version>VERSION</version>
 	<scope>provided</scope>
@@ -43,7 +43,7 @@ The core API, all implementations should intergrate this
 All server implementations should implement this, regardless of platform
 ```
 <dependency>
-	<groupId>com.github.Hanro50.Discraft</groupId>
+	<groupId>com.github.Hanro50.Hancord</groupId>
 	<artifactId>Server_core</artifactId>
 	<version>VERSION</version>
 	<scope>provided</scope>
@@ -53,7 +53,7 @@ All server implementations should implement this, regardless of platform
 All spigot clients should implement this
 ```
 <dependency>
-	<groupId>com.github.Hanro50.Discraft</groupId>
+	<groupId>com.github.Hanro50.Hancord</groupId>
 	<artifactId>Client_Spigot</artifactId>
 	<version>VERSION</version>
 	<scope>provided</scope>
