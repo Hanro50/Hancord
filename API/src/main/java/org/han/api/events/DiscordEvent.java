@@ -1,5 +1,7 @@
 package org.han.api.events;
 
-public interface DiscordEvent {
+import org.han.api.types.Jsonable;
 
+public interface DiscordEvent extends Jsonable{
+	
 }

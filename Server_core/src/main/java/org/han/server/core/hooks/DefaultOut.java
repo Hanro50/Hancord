@@ -28,7 +28,6 @@ import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -383,25 +382,22 @@ public class DefaultOut extends DisgotJsonObj implements OutputHandlerAPI {
 			return;
 		}
 		TextChannel CHL = ServerData.getServer().getGuild().getTextChannelById(ChannelID);
-		IMentionable mem = ServerData.getServer().getGuild().retrieveMemberById(message.getDiscordID()).complete();
-		if (mem == null) {
-			mem = ServerData.getServer().getSH().retrieveUserById(message.getDiscordID()).complete();
-		}
+
 		if (message.isError()) {
 
-			Printer.err(CHL, mem, (message.getHeader().trim().length() > 0 ? "**" + message.getHeader() + "** :" : "")
+			Printer.err(CHL,null, (message.getHeader().trim().length() > 0 ? "**" + message.getHeader() + "** :" : "")
 					+ message.getContent());
 			return;
 		}
-		new Printer(CHL.getGuild(), mem).setup(message.getHeader(), message.getContent()).Print(CHL);
+		new Printer(CHL.getGuild(), null).setup(message.getHeader(), message.getContent()).Print(CHL);
 
 	}
 
 	@Override
 	public Map<String, Long> availableChannels() {
+		if (this.exists())
+			makeLoaded();
 		if (Channels.isEmpty()) {
-			if (this.exists())
-				makeLoaded();
 			setChannel(getDefaultchannel());
 		}
 		return Channels;

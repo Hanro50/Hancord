@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class DiscordPlayer_new extends DiscordPlayer{
 
-	public DiscordPlayer_new(OfflinePlayer player, Long discordID) {
-		super(player, discordID);
+	public DiscordPlayer_new(OfflinePlayer player) {
+		super(player);
 		// TODO Auto-generated constructor stub
 	}
 	public Spigot spigot() {		

@@ -23,6 +23,8 @@ public interface OutputHandlerAPI {
 	public void updateTopic(String ChannelName, String newHeader);
 	
 	public void serverStateUpdate(String ChannelName, boolean startup);
+	
+
 
 	public Map<String, Long> availableChannels();
 

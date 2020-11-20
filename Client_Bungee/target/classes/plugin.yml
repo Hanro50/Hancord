@@ -1,0 +1,7 @@
+name: Discraft
+version: 1.0-SNAPSHOT
+author: Hanro50
+main: org.han.client.bungee.Spigot
+api-version: 1.16
+depend: [HanLib_API]
+softdepend: [dynmap] 

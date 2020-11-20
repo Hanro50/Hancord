@@ -1,0 +1,11 @@
+name: Discraft
+version: 1.0-SNAPSHOT
+author: Hanro50
+main: org.han.server.bungee.Boot
+api-version: 1.16
+softdepend: [LuckPerms] 
+commands:
+  link:
+    description: Get a code to DM to the bot
+  unlink:
+    description: Unlink your account

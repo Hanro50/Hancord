@@ -6,16 +6,15 @@ public class Broadcast implements BroadcastAPI {
 	private String header;
 	private String content;
 	private boolean isError = false;
-	private long discordID;
+
 	
-	public Broadcast(long discordID, String header, String content) {
+	public Broadcast(String header, String content) {
 		this.header = header;
 		this.content = content;
-		this.discordID=discordID;
+
 	}
 
-	public Broadcast(long discordID,String header, String content, boolean isError) {
-		this(discordID,header, content);
+	public Broadcast(String header, String content, boolean isError) {
 		this.isError = isError;
 	}
 
@@ -36,9 +35,9 @@ public class Broadcast implements BroadcastAPI {
 	}
 
 	@Override
-	public long getDiscordID() {
+	public long getCreationdate() {
 		// TODO Auto-generated method stub
-		return discordID;
+		return 0;
 	}
 
 }

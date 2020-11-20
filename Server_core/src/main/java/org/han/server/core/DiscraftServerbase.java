@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.security.auth.login.LoginException;
@@ -35,6 +36,13 @@ import net.dv8tion.jda.api.utils.ChunkingFilter;
 
 public interface DiscraftServerbase extends DiscraftBaseAPI, ComBase {
 
+	public default void userlink(UUID player) {
+		
+	}
+	public default void userunlink(UUID player) {
+		
+	}
+	
 	public default Guild getGuild() {
 		return getData().getGuild();
 	}
@@ -93,7 +101,7 @@ public interface DiscraftServerbase extends DiscraftBaseAPI, ComBase {
 		OutputHandlerAPI output = new DefaultOut();
 		ShardManager SH;
 
-		public Data(DiscraftServerbase base) throws LoginException {
+		public Data(DiscraftServerbase base) throws LoginException{
 			try {
 				ServerData.setServer(base);
 				DiscordDataHolder.CB.add(base);
@@ -116,6 +124,8 @@ public interface DiscraftServerbase extends DiscraftBaseAPI, ComBase {
 			} catch (IllegalArgumentException e) {
 				Log.trace(e);
 
+			}catch (java.util.concurrent.CompletionException e) {
+				throw new LoginException();
 			}
 			// Bukkit.dispatchCommand(sender, commandLine);
 			registercoms(base);
@@ -200,6 +210,12 @@ public interface DiscraftServerbase extends DiscraftBaseAPI, ComBase {
 					return false;
 				}
 				return mem.getTimeBoosted() != null;
+			}
+
+			@Override
+			public Set<UUID> allMembers() {
+				// TODO Auto-generated method stub
+				return AccountLink.getLinkedPlayers();
 			}
 		};
 		

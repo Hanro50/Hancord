@@ -101,10 +101,10 @@ public class Printer {
 	}
 
 	public Printer setup(String header, String Disc) {
-		if (header.trim().length() > 0)
+		if (header != null && header.trim().length() > 0)
 			embed.setTitle(header);
-		if (Disc.trim().length() > 0)
-		embed.setDescription(Disc);
+		if (Disc != null && Disc.trim().length() > 0)
+			embed.setDescription(Disc);
 		return this;
 	}
 

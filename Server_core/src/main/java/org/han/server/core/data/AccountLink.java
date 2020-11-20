@@ -3,6 +3,7 @@ package org.han.server.core.data;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -21,7 +22,7 @@ public class AccountLink extends DisgotJsonObj {
 
 	AccountLink() {
 		super("", "Linked Account", "json");
-		
+
 	}
 
 	static AccountLink me;
@@ -34,6 +35,10 @@ public class AccountLink extends DisgotJsonObj {
 	Map<UUID, Long> MinecratfToDiscord = new HashMap<UUID, Long>();
 	BiMap<UUID, Long> mapfrontmap = HashBiMap.create();
 	static BiMap<UUID, String> LinkCode = HashBiMap.create();
+
+	public static Set<UUID> getLinkedPlayers() {
+		return me.MinecratfToDiscord.keySet();
+	}
 
 	public static UUID getUUID(Long DiscordID) {
 		BiMap<UUID, Long> map = HashBiMap.create();
@@ -58,7 +63,7 @@ public class AccountLink extends DisgotJsonObj {
 		me.save();
 		Printer.suc(run, "Your account should now be linked!");
 	}
-	
+
 	public static void unLink(UUID player, Consumer<String> out) {
 		me.MinecratfToDiscord.remove(player);
 		me.save();
@@ -69,8 +74,9 @@ public class AccountLink extends DisgotJsonObj {
 		LinkCode.remove(player);
 		String value = String.valueOf(rand.nextInt(90000) + 10000).trim();
 		LinkCode.put(player, value);
-		
+
 		out.accept("DM the bot the following: \"!link " + value + "\" to link your accounts");
-		//player.sendMessage("DM the bot the following: \"!link " + value + "\" to link your accounts");
+		// player.sendMessage("DM the bot the following: \"!link " + value + "\" to link
+		// your accounts");
 	}
 }

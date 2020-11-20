@@ -8,6 +8,8 @@ public class DiscordChatEvent implements DiscordEvent {
 	private boolean Linked;
 	private UUID player;
 	private long DiscordID;
+	private long ChannelID;
+
 	private Color TopRoleColor;
 	private String name;
 	private String pfpURL;
@@ -16,11 +18,12 @@ public class DiscordChatEvent implements DiscordEvent {
 	boolean isCancelled = false;
 	private String format = "&9[%3$sDiscord&9]&f <%1$s> %2$s";
 
-	public DiscordChatEvent(UUID player, long DiscordID, Color TopRoleColor, String name, String pfpURL,
+	public DiscordChatEvent(UUID player, long DiscordID, long ChannelID, Color TopRoleColor, String name, String pfpURL,
 			String Message) {
 		this.Linked = player != null;
 		this.player = player;
 		this.DiscordID = DiscordID;
+		this.ChannelID = ChannelID;
 		this.TopRoleColor = TopRoleColor;
 		this.name = name;
 		this.pfpURL = pfpURL;
@@ -119,6 +122,10 @@ public class DiscordChatEvent implements DiscordEvent {
 
 	public String getPfpURL() {
 		return pfpURL;
+	}
+
+	public long getChannelID() {
+		return ChannelID;
 	}
 
 }

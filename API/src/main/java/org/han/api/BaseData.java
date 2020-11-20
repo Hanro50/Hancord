@@ -1,8 +1,5 @@
 package org.han.api;
 
-import java.io.File;
-
-import org.han.debug.Log;
 import org.han.files.FIleUtil;
 
 public class BaseData {
@@ -10,24 +7,10 @@ public class BaseData {
 	public static final long miliInHour = 3600000;
 	public static final long miliInMinute = 60000;
 	
-	private static File dataFile;
 	private static DiscraftBaseAPI pluginbase;
 
 	public static FIleUtil getFU() {
-		return new FIleUtil(dataFile);
-	}
-
-	public static void setDataFile(File dataFile) {
-		if (BaseData.dataFile == null && dataFile != null) {
-			BaseData.dataFile = dataFile;
-			Log.out("set data file to " + dataFile.getPath());
-		} else if (dataFile == null) {
-			Log.trace(new Exception("Nullpointer averted. Please FIX ME"));
-
-		} else {
-			Log.wrn("2 data set events?!");
-		}
-
+		return new FIleUtil(getPluginbase().getDataFile());
 	}
 
 	public static DiscraftBaseAPI getPluginbase() {

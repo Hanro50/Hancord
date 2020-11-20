@@ -63,7 +63,7 @@ public class DiscordListenerAdapter extends ListenerAdapter {
 			}
 		}
 		EventHandler.callEvent(
-				new DiscordChatEvent(uuid, event.getAuthor().getIdLong(), color, event.getMember().getEffectiveName(),
+				new DiscordChatEvent(uuid, event.getAuthor().getIdLong(), event.getChannel().getIdLong(), color, event.getMember().getEffectiveName(),
 						event.getAuthor().getAvatarUrl(), event.getMessage().getContentDisplay()));
 
 	}

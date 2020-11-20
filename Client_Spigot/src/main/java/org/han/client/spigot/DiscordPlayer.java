@@ -20,13 +20,12 @@ import org.han.debug.Log;
 public class DiscordPlayer implements CommandSender, AnimalTamer {
 	protected final PermissibleBase perm;
 	private final OfflinePlayer player;
-	private final Long discordID;
+
 	private String out = "";
 
-	public DiscordPlayer(OfflinePlayer player, Long discordID) {
+	public DiscordPlayer(OfflinePlayer player) {
 		this.player = player;
 		perm = new PermissibleBase(this);
-		this.discordID = discordID;
 	}
 
 	@Override
@@ -137,14 +136,14 @@ public class DiscordPlayer implements CommandSender, AnimalTamer {
 		Log.out("broadcasting message");
 		if (out.length() < 1) {
 			BaseData.getPluginbase().getOutput()
-					.broadcastMessage(new Broadcast(discordID, "", "Got no console respone", true));
+					.broadcastMessage(new Broadcast("", "Got no console respone", true));
 
 		} else if (out.length() < 2000) {
 			BaseData.getPluginbase().getOutput()
-					.broadcastMessage(new Broadcast(discordID, "Got the following respose!", out));
+					.broadcastMessage(new Broadcast("Got the following respose!", out));
 
 		} else {
-			BaseData.getPluginbase().getOutput().broadcastMessage(new Broadcast(discordID, "Error",
+			BaseData.getPluginbase().getOutput().broadcastMessage(new Broadcast( "Error",
 					"Respone was way to long to show here. Rather run this ingame", true));
 		}
 	}

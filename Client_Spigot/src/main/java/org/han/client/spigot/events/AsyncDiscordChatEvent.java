@@ -8,21 +8,26 @@ import org.bukkit.event.HandlerList;
 import org.han.api.events.DiscordChatEvent;
 
 public class AsyncDiscordChatEvent extends Event {
-private DiscordChatEvent event;
-private static final HandlerList handlers = new HandlerList();
+	private DiscordChatEvent event;
+	private static final HandlerList handlers = new HandlerList();
 
-public HandlerList getHandlers() {
-    return handlers;
-}
+	public HandlerList getHandlers() {
+		return handlers;
+	}
 
-public static HandlerList getHandlerList() {
-    return handlers;
-}
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
 
 	public AsyncDiscordChatEvent(DiscordChatEvent event) {
-		super(true);
+		this(event, true);
+
+	}
+
+	public AsyncDiscordChatEvent(DiscordChatEvent event, boolean isAsync) {
+		super(isAsync);
 		this.event = event;
-		
+
 	}
 
 	/**

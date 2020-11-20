@@ -1,5 +1,6 @@
 package org.han.api;
 
+import java.io.File;
 import java.util.UUID;
 
 import org.han.api.types.OutputHandlerAPI;
@@ -22,6 +23,5 @@ public interface DiscraftBaseAPI {
 
 	public String getIconURL();
 
-	
-
+	public File getDataFile();
 }

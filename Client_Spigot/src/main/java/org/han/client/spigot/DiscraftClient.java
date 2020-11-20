@@ -1,6 +1,5 @@
 package org.han.client.spigot;
 
-import java.io.File;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -41,22 +40,21 @@ public abstract class DiscraftClient implements DiscordListener, DiscraftBaseAPI
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 			DiscordPlayer DP;
 			try {
-				DP = new DiscordPlayer_new(Bukkit.getOfflinePlayer(uuid), DiscordID);
+				DP = new DiscordPlayer_new(Bukkit.getOfflinePlayer(uuid));
 			} catch (NoClassDefFoundError e) {
-				DP = new DiscordPlayer(Bukkit.getOfflinePlayer(uuid), DiscordID);
+				DP = new DiscordPlayer(Bukkit.getOfflinePlayer(uuid));
 			}
 			try {
 				Bukkit.dispatchCommand(DP, message);
 				DP.printInput();
 			} catch (CommandException e) {
-				getOutput().broadcastMessage(new Broadcast(DiscordID, "", "This command is incompatible", true));
+				getOutput().broadcastMessage(new Broadcast("", "This command is incompatible", true));
 			}
 
 		}, 1L);
 	}
 
 	public DiscraftClient(JavaPlugin plugin) {
-		BaseData.setDataFile(getfile());
 		BaseData.setPluginbase(this);
 		this.plugin = plugin;
 		EventHandler.subscribe(this);
@@ -68,8 +66,6 @@ public abstract class DiscraftClient implements DiscordListener, DiscraftBaseAPI
 	public void Stop() {
 		EventHandler.unsubscribe(this);
 	}
-
-	public abstract File getfile();
 
 	public void onDiscordLogin(DiscordLoginEvent event) {
 		Bukkit.getServer().getPluginManager().callEvent(new AsyncDiscordLoginEvent(event));

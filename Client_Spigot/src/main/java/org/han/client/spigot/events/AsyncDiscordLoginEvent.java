@@ -17,10 +17,15 @@ public class AsyncDiscordLoginEvent extends Event {
 	public static HandlerList getHandlerList() {
 	    return handlers;
 	}
+	
+	public AsyncDiscordLoginEvent(DiscordLoginEvent event, boolean isAsync) {
+		super(isAsync);
+		this.event = event;
+
+	}
 
 	public AsyncDiscordLoginEvent(DiscordLoginEvent event) {
-		super(true);
-		this.event = event;
+		this(event, true);
 
 	}
 

@@ -12,6 +12,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
+	  <repository>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
@@ -37,12 +41,15 @@
 			<version>0.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+		
 	</dependencies>
 	<modules>
 		<module>API</module>
 		<module>Server_Spigot</module>
 		<module>Server_core</module>
 		<module>Client_Spigot</module>
+		<module>Server_Bungee</module>
+		<module>Client_Bungee</module>
 	</modules>
 	<profiles>
 		<profile>

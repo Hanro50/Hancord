@@ -89,11 +89,7 @@ public class SpigotServ extends JavaPlugin {
 			return data;
 		}
 
-		@Override
-		public File getfile() {
-			// TODO Auto-generated method stub
-			return SpigotServ.this.getDataFolder();
-		}
+		
 
 		@Override
 		public Field getUserStatus(Member usr, Guild guild) {
@@ -122,6 +118,11 @@ public class SpigotServ extends JavaPlugin {
 				Settings.get().save();
 				Printer.suc(run, "set channel");
 			}).setGuild().setPerms(AccCheck.BotOwner, AccCheck.Trusted);
+		}
+
+		@Override
+		public File getDataFile() {
+			return SpigotServ.this.getDataFolder();
 		}
 
 	}
