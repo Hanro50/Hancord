@@ -4,4 +4,4 @@ before_install:
    - ./custom_setup.sh
 install:
    - echo "Running a custom install command"
-   - ./mvnw -U clean install
+   - mvn -U clean install
