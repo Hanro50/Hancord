@@ -1,7 +1,7 @@
 
 
-# Discraft
-A discord binding for Spigot's plugin api
+# Hancord
+A Discord binding for various Minecraft server plugin API's.
 
 # Features 
 #### 1.16+ 	
